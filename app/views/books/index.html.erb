@@ -1,3 +1,10 @@
+<% if @book.errors.any? %>
+  <%= @book.errors.count %>件のerrorが発生しました
+  <% @book.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
+
 <h1>Books</h1>
 
 <table>
@@ -14,8 +21,8 @@
       <tr>
         <td><%= book.title %></td>
         <td><%= book.body %></td>
-        <td><%= link_to 'Show', book, class: "show_#{book.id}" %></td>
-        <td><%= link_to 'Edit', edit_book_path, class: "edit_#{book.id}" %></td>
+        <td><%= link_to 'Show', book_path(book), class: "show_#{book.id}" %></td>
+        <td><%= link_to 'Edit', edit_book_path(book), class: "edit_#{book.id}" %></td>
         <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' }, class: "destroy_#{book.id}" %></td>
       </tr>
     <% end %>
@@ -24,4 +31,4 @@
 
 
 <h2>New book</h2>
-<%= render 'form' %>
+<%= render 'books/form', book: @book %>
